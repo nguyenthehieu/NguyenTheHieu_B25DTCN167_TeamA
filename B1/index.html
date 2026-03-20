@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Theme Switcher</title>
+    <script>
+    (function () {
+      try {
+        const saved = localStorage.getItem("theme");
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = saved ? saved : (systemDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    :root {
+      --bg: #f2f4f7;
+      --card: #ffffff;
+      --text: #111;
+    }
+
+    [data-theme="dark"] {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --text: #f5f5f5;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 40px;
+    }
+
+    header h1 {
+      font-size: 26px;
+    }
+
+    #theme-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: var(--card);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+    .container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .card {
+      width: 800px;
+      background: var(--card);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: background 0.3s ease;
+    }
+
+    .card h2 {
+      margin-bottom: 16px;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Rikkei Tech Hub</h1>
+
+  <button id="theme-toggle">🌙</button>
+  </button>
+</header>
+
+<main class="container">
+  <div class="card">
+    <h2>AI đang thay đổi ngành công nghệ Việt Nam như thế nào?</h2>
+
+    <img src="./tải xuống.jfif" alt="AI">
+
+    <p>
+      Trong những năm gần đây, trí tuệ nhân tạo (AI) đã không còn là khái niệm xa vời.
+      Tại Việt Nam, hàng loạt startup và doanh nghiệp lớn đã bắt đầu tích hợp AI vào sản phẩm và quy trình vận hành.
+    </p>
+
+    <p>
+      Từ trợ lý ảo, phân tích dữ liệu kinh doanh, nhận diện hình ảnh, đến tối ưu hóa chuỗi cung ứng —
+      AI đang hiện diện ở hầu hết các lĩnh vực.
+    </p>
+
+    <p>
+      Tuy nhiên, thách thức lớn nhất không phải là công nghệ, mà là con người:
+      thiếu nhân lực chất lượng cao và nhận thức về AI còn hạn chế.
+    </p>
+  </div>
+</main>
+
+<script>
+  const toggleBtn = document.getElementById("theme-toggle");
+
+  function getSystemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+
+  function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  updateIcon(theme);
+}
+
+  function getSavedTheme() {
+    try {
+      return localStorage.getItem("theme");
+    } catch {
+      return null;
+    }
+  }
+  function updateIcon(theme) {
+  toggleBtn.textContent = theme === "dark" ? "🌞" : "🌙";
+}
+
+  function saveTheme(theme) {
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {}
+  }
+
+  let currentTheme = getSavedTheme() || getSystemTheme();
+  applyTheme(currentTheme);
+
+  toggleBtn.addEventListener("click", () => {
+    currentTheme = currentTheme === "light" ? "dark" : "light";
+    applyTheme(currentTheme);
+    saveTheme(currentTheme);
+  });
+
+  window.matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      if (!getSavedTheme()) {
+        applyTheme(e.matches ? "dark" : "light");
+      }
+    });
+</script>
+
+</body>
+</html>
