@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Toast Notification</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>K25_CNTT_HN</h1>
+  <p>Toast Notification System</p>
+
+  <div class="card">
+    <div class="buttons">
+      <button class="success" onclick="triggerToast('success')">Success</button>
+      <button class="error" onclick="triggerToast('error')">Error</button>
+      <button class="info" onclick="triggerToast('info')">Info</button>
+      <button class="warning" onclick="triggerToast('warning')">Warning</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
